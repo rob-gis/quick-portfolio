@@ -4,7 +4,7 @@
 
 ### Category Name 1 
 
-[Project 1 Title](/spider_forest_1)
+[Project 1 Title](/spider_forest_1.jpg/index)
 <img src="images/spider_forest_1.jpg"?raw=true/>
 
 ---
