@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/bmore_imm_2019_0.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[39.15963434740659,-76.9641950591309],[39.80699123527567,-76.1483427600015]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        function pop_bmore_imm_2019_0(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['GEOID'] !== null ? autolinker.link(feature.properties['GEOID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NAME'] !== null ? autolinker.link(feature.properties['NAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['totalE'] !== null ? autolinker.link(feature.properties['totalE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['totalM'] !== null ? autolinker.link(feature.properties['totalM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['foreign_bornE'] !== null ? autolinker.link(feature.properties['foreign_bornE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['foreign_bornM'] !== null ? autolinker.link(feature.properties['foreign_bornM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['nativeE'] !== null ? autolinker.link(feature.properties['nativeE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['nativeM'] !== null ? autolinker.link(feature.properties['nativeM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['foreign_born_share'] !== null ? autolinker.link(feature.properties['foreign_born_share'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['native_share'] !== null ? autolinker.link(feature.properties['native_share'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['immigrant_dif_2019'] !== null ? autolinker.link(feature.properties['immigrant_dif_2019'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bmore_imm_2014_NAME'] !== null ? autolinker.link(feature.properties['bmore_imm_2014_NAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bmore_imm_2014_totalE'] !== null ? autolinker.link(feature.properties['bmore_imm_2014_totalE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bmore_imm_2014_totalM'] !== null ? autolinker.link(feature.properties['bmore_imm_2014_totalM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bmore_imm_2014_foreign_bornE'] !== null ? autolinker.link(feature.properties['bmore_imm_2014_foreign_bornE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bmore_imm_2014_foreign_bornM'] !== null ? autolinker.link(feature.properties['bmore_imm_2014_foreign_bornM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bmore_imm_2014_nativeE'] !== null ? autolinker.link(feature.properties['bmore_imm_2014_nativeE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bmore_imm_2014_nativeM'] !== null ? autolinker.link(feature.properties['bmore_imm_2014_nativeM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bmore_imm_2014_foreign_born_share'] !== null ? autolinker.link(feature.properties['bmore_imm_2014_foreign_born_share'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bmore_imm_2014_native_share'] !== null ? autolinker.link(feature.properties['bmore_imm_2014_native_share'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_bmore_imm_2019_0_0(feature) {
+            if (feature.properties['immigrant_dif_2019'] >= -0.168000 && feature.properties['immigrant_dif_2019'] <= -0.023000 ) {
+                return {
+                pane: 'pane_bmore_imm_2019_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['immigrant_dif_2019'] >= -0.023000 && feature.properties['immigrant_dif_2019'] <= -0.003000 ) {
+                return {
+                pane: 'pane_bmore_imm_2019_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,191,191,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['immigrant_dif_2019'] >= -0.003000 && feature.properties['immigrant_dif_2019'] <= 0.017000 ) {
+                return {
+                pane: 'pane_bmore_imm_2019_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,128,128,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['immigrant_dif_2019'] >= 0.017000 && feature.properties['immigrant_dif_2019'] <= 0.041200 ) {
+                return {
+                pane: 'pane_bmore_imm_2019_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,64,64,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['immigrant_dif_2019'] >= 0.041200 && feature.properties['immigrant_dif_2019'] <= 0.236000 ) {
+                return {
+                pane: 'pane_bmore_imm_2019_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,0,0,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_bmore_imm_2019_0');
+        map.getPane('pane_bmore_imm_2019_0').style.zIndex = 400;
+        map.getPane('pane_bmore_imm_2019_0').style['mix-blend-mode'] = 'normal';
+        var layer_bmore_imm_2019_0 = new L.geoJson(json_bmore_imm_2019_0, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_bmore_imm_2019_0',
+            layerName: 'layer_bmore_imm_2019_0',
+            pane: 'pane_bmore_imm_2019_0',
+            onEachFeature: pop_bmore_imm_2019_0,
+            style: style_bmore_imm_2019_0_0,
+        });
+        bounds_group.addLayer(layer_bmore_imm_2019_0);
+        map.addLayer(layer_bmore_imm_2019_0);
+        setBounds();
+        </script>
+    </body>
+</html>
