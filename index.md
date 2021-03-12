@@ -9,7 +9,7 @@
 
 ---
 [Project 2 Title](http://example.com/)
-<img src="https://github.com/rob-gis/rob-gis.github.io/blob/master/MD_Immigration_Changes/index.html"/>
+<img src="MD_Immigration_Changes/index.html"/>
 
 ---
 [Project 3 Title](http://example.com/)
